@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PHP Exposed Versions</title>
+  <meta name="description" content="Every PHP version that is end-of-life or missing security patches, a checker to see if your website is exposed, and free tools to auto-update PHP and block injection attacks.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">PHP security status</p>
+      <h1>Is your PHP exposed?</h1>
+      <p class="lede">Every PHP version that is end-of-life or missing security patches, a quick check for your own site, and drop-in tools to keep PHP patched and block injection attacks.</p>
+
+      <form id="check-form" class="search" autocomplete="off">
+        <label for="check-input" class="sr-only">Website URL, PHP version or response headers</label>
+        <input id="check-input" type="text" placeholder="example.com, 7.4.33, or paste &quot;X-Powered-By: PHP/8.1.2&quot;" required>
+        <button type="submit">Check</button>
+      </form>
+      <div id="check-result" class="result" hidden aria-live="polite"></div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="versions">
+      <div class="section-head">
+        <h2>Exposed PHP versions</h2>
+        <p class="muted" id="data-date"></p>
+      </div>
+      <p class="summary" id="summary"></p>
+      <div class="filters">
+        <input id="filter" type="search" placeholder="Filter branches, e.g. 7.4" aria-label="Filter branches">
+        <div class="chips" role="group" aria-label="Status filter">
+          <button class="chip active" data-status="all">All</button>
+          <button class="chip" data-status="eol">End of life</button>
+          <button class="chip" data-status="security">Security fixes only</button>
+          <button class="chip" data-status="active">Active</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Branch</th><th>Status</th><th>Exposed versions</th><th>Safe version</th><th>Security support ends</th></tr>
+          </thead>
+          <tbody id="version-rows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="cves">
+      <h2>Notable PHP vulnerabilities</h2>
+      <p class="muted">Recent and widely-exploited CVEs, with the first fixed release per branch. End-of-life branches never get these fixes.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>CVE</th><th>Severity</th><th>Issue</th><th>Fixed in</th></tr></thead>
+          <tbody id="cve-rows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="tools">
+      <h2>Protect your server</h2>
+      <div class="cards">
+        <article class="card">
+          <h3>PHP Guard</h3>
+          <p>Injection protection that runs before every request. Blocks SQL injection, XSS, path traversal, remote file inclusion, command injection, PHP-CGI argument injection (CVE-2024-4577) and PHP file uploads, hides <code>X-Powered-By</code>, and sends security headers.</p>
+          <pre><code>; php.ini or .user.ini
+auto_prepend_file = "/var/www/php-guard.php"</code></pre>
+          <p class="note">Start with <code>'mode' =&gt; 'log'</code> for a few days to check for false positives, then switch to <code>block</code>. This adds a layer; keep using prepared statements and output escaping.</p>
+          <a class="btn" href="tools/php-guard.php" download>Download php-guard.php</a>
+        </article>
+        <article class="card">
+          <h3>PHP Auto-Updater</h3>
+          <p>Installs patch releases for the branch you run (apt, dnf, yum, apk, Homebrew), restarts PHP-FPM / Apache, and warns when your branch is end-of-life or your OS repo lags behind php.net.</p>
+          <pre><code>sudo install -m 755 php-auto-update.sh /usr/local/sbin/
+sudo php-auto-update.sh --dry-run
+# daily via cron:
+17 3 * * * root /usr/local/sbin/php-auto-update.sh &gt;&gt; /var/log/php-auto-update.log 2&gt;&amp;1</code></pre>
+          <a class="btn" href="tools/php-auto-update.sh" download>Download php-auto-update.sh</a>
+        </article>
+        <article class="card">
+          <h3>Self-check script</h3>
+          <p>Reports your exact PHP version, whether it is outdated or end-of-life, which listed CVEs apply, and which <code>php.ini</code> settings need hardening. Exit codes make it easy to alert from cron or CI.</p>
+          <pre><code>php php-version-check.php
+# exit 0 = ok, 1 = outdated/warnings, 2 = end-of-life</code></pre>
+          <a class="btn" href="tools/php-version-check.php" download>Download php-version-check.php</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap muted">
+    Version data is refreshed daily from the <a href="https://www.php.net/supported-versions.php">php.net</a> releases API.
+    Source on <a href="https://github.com/aababababababbabaabababababba/PHP-Exposed-Verisons">GitHub</a>.
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
