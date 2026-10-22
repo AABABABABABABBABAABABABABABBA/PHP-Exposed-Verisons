@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T00:20:34Z",
+  "generatedAt": "2026-10-22T09:24:58Z",
   "source": "php.net releases API",
   "branches": [
     {
@@ -7,28 +7,28 @@
       "released": "2025-11-20",
       "activeUntil": "2027-12-31",
       "securityUntil": "2029-12-31",
-      "latest": "8.5.11"
+      "latest": "8.5.12"
     },
     {
       "branch": "8.4",
       "released": "2024-11-21",
       "activeUntil": "2026-12-31",
       "securityUntil": "2028-12-31",
-      "latest": "8.4.26"
+      "latest": "8.4.27"
     },
     {
       "branch": "8.3",
       "released": "2023-11-23",
       "activeUntil": "2025-12-31",
       "securityUntil": "2027-12-31",
-      "latest": "8.3.35"
+      "latest": "8.3.36"
     },
     {
       "branch": "8.2",
       "released": "2022-12-08",
       "activeUntil": "2024-12-31",
       "securityUntil": "2026-12-31",
-      "latest": "8.2.34"
+      "latest": "8.2.35"
     },
     {
       "branch": "8.1",
